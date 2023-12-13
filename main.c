@@ -10,9 +10,11 @@ int main(int ac __attribute__((unused)), char *av[])
 {
 	char *lineptr = NULL, *cop_lineptr;
 	size_t n = 0;
+	int mode = 1;
 
-	while (1)
+	while (mode)
 	{
+		mode = isatty(STDIN_FILENO);
 		write(1, "($) ", 5);
 		if (getline(&lineptr, &n, stdin) == -1)
 			perror("./hsh");

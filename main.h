@@ -11,6 +11,7 @@
 #include <signal.h>
 
 extern char **environ;
+char *get_env(char *env_name);
 void identify(char **argv);
 void enviro_lsit(void);
 void exit_shell(void);

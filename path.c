@@ -10,7 +10,7 @@ char *full_path(char *str)
 	int i = 0, j = 0, k = 0;
 	struct stat buffer;
 
-	path = getenv("PATH");
+	path = get_env("PATH");
 	while (path[k])
 		k++;
 	cpy_environ = malloc(sizeof(char) * (k + 1));

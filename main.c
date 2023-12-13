@@ -18,7 +18,7 @@ int main(int ac __attribute__((unused)), char *av[])
 			perror("./hsh");
 		cop_lineptr = letter_identify(lineptr, '\n', '\0');
 		av = tok_string(cop_lineptr, " ");
-		execut(av, environ);
+		identify(av);
 		free(av);
 		free(cop_lineptr);
 	}

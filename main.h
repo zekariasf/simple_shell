@@ -8,8 +8,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <signal.h>
 
 extern char **environ;
+void identify(char **argv);
+void enviro_lsit(void);
+void exit_shell(void);
+int str_cmp(char *s1, char *s2);
+int exit_prs(pid_t pid);
 void str_cat(char *pest, char *copy);
 void str_cpy(char *cpy, char *elem);
 char *full_path(char *str);

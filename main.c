@@ -10,12 +10,12 @@ int main(int ac __attribute__((unused)), char *av[])
 {
 	char *lineptr = NULL, *cop_lineptr;
 	size_t n = 0;
-	int mode = 1;
+	int mode;
 
-	while (mode)
-	{
+	do {
 		mode = isatty(STDIN_FILENO);
-		write(1, "($) ", 5);
+		if (mode)
+			write(1, "($) ", 5);
 		if (getline(&lineptr, &n, stdin) == -1)
 			perror("./hsh");
 		cop_lineptr = letter_identify(lineptr, '\n', '\0');
@@ -23,7 +23,7 @@ int main(int ac __attribute__((unused)), char *av[])
 		identify(av);
 		free(av);
 		free(cop_lineptr);
-	}
+	} while (mode);
 
 	free(lineptr);
 	return (0);

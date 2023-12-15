@@ -1,27 +1,24 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <sys/type.h>
+#include <fcntl.h>
 
 extern char **environ;
-char *get_env(char *env_name);
-void identify(char **argv);
-void enviro_lsit(void);
-void exit_shell(void);
-int str_cmp(char *s1, char *s2);
-int exit_prs(pid_t pid);
-void str_cat(char *pest, char *copy);
-void str_cpy(char *cpy, char *elem);
-char *full_path(char *str);
-char **tok_string(char *str, char *delim);
-void execut(char **argv, char **envi);
-char *letter_identify(char *word, char old_let, char new_let);
 
+
+void *re_alloc(void *str, unsigned int old, unsigned int news);
+void asi_lineptr(char **lineptr, size_t *n, char *buf, size_t b);
+ssize_t get_line(char **lineptr, size_t *n, FILE *str);
+void str_free(char **argv, char **frs_argv);
+char *pid_value(void);
+char *environ_value(char *beg, int n);
+void replac_variable(char **argv, int *i);
 #endif

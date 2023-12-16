@@ -38,7 +38,7 @@ int alias_shell(char **args, char __attribute__((__unused__)) **start)
 		tmp = tmp->next;
 	}
 	if (!tmp)
-		ret = create_error(args + i, 1);
+		ret = throw_error(args + i, 1);
 		}
 		else
 			set_alias(args[a], val);

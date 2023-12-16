@@ -52,7 +52,7 @@ int hshell_exit(char **args, char **start)
 			if (i <= len_i && args[0][a] >= '0' && args[0][a] <= '9')
 				n = (n * 10) + (args[0][a] - '0');
 			else
-				return (create_error(--args, 2));
+				return (throw_error(--args, 2));
 		}
 	}
 	else
@@ -60,7 +60,7 @@ int hshell_exit(char **args, char **start)
 		return (-3);
 	}
 	if (n > max - 1)
-		return (create_error(--args, 2));
+		return (throw_error(--args, 2));
 	args -= 1;
 	free_args(args, front);
 	free_env();
@@ -99,7 +99,7 @@ int hshell_cd(char **args, char __attribute__((__unused__)) **start)
 			else
 			{
 				free(prpwd);
-				return (create_error(args, 2));
+				return (throw_error(args, 2));
 			}
 		}
 		else
@@ -110,7 +110,7 @@ int hshell_cd(char **args, char __attribute__((__unused__)) **start)
 			else
 			{
 				free(prpwd);
-				return (create_error(args, 2));
+				return (throw_error(args, 2));
 			}
 		}
 	}

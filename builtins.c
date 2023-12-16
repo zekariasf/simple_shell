@@ -151,7 +151,7 @@ int shell_cd(char **args, char __attribute__((__unused__)) **start)
 int shell_help(char **args, char __attribute__((__unused__)) **start)
 {
 	if (!args[0])
-		help_all();
+		call_hall();
 	else if (str_cmp(args[0], "alias") == 0)
 		call_alias();
 	else if (str_cmp(args[0], "cd") == 0)

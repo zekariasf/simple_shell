@@ -89,4 +89,3 @@ void call_help(void)
 	info = "builtin commands.\n";
 	write(STDOUT_FILENO, info, str_len(info));
 }
-

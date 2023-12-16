@@ -27,7 +27,7 @@ int (*find_builtin(char *cmd))(char **args, char **start)
 	return (func[a].f);
 }
 /**
- * shell_exit - normal termination
+ * hshell_exit - normal termination
  * @args: array of arguments containing the exit value
  * @start: a double pointer to the begining of args.
  *
@@ -35,7 +35,7 @@ int (*find_builtin(char *cmd))(char **args, char **start)
  * -2 for invalid exit value
  * o/w - exits with the given status value
  */
-int shell_exit(char **args, char **start)
+int hshell_exit(char **args, char **start)
 {
 	int a, len_i = 10;
 	unsigned int n = 0, max = 1 << (sizeof(int) * 8 - 1);
@@ -68,7 +68,7 @@ int shell_exit(char **args, char **start)
 	exit(n);
 }
 /**
- * shell_cd - changes the current director of the shell process.
+ * hshell_cd - changes the current director of the shell process.
  * @args: an array of arguments
  * @start: a double poiter to the begining of args
  *
@@ -76,7 +76,7 @@ int shell_exit(char **args, char **start)
  * -1 if an error occurs
  * otherwise 0
  */
-int shell_cd(char **args, char __attribute__((__unused__)) **start)
+int hshell_cd(char **args, char __attribute__((__unused__)) **start)
 {
 	char **dir_i, *new_line = "\n";
 	char *prpwd = NULL, *pwd = NULL;
@@ -142,13 +142,13 @@ int shell_cd(char **args, char __attribute__((__unused__)) **start)
 	return (0);
 }
 /**
- * shell_help - displays info about builtin shell commands
+ * hshell_help - displays info about builtin shell commands
  * @args: array of arguments
  * @start: a pointer to the begining of args
  *
  * Return: -1 if an error occurs, 0 otherwise
  */
-int shell_help(char **args, char __attribute__((__unused__)) **start)
+int hshell_help(char **args, char __attribute__((__unused__)) **start)
 {
 	if (!args[0])
 		call_hall();

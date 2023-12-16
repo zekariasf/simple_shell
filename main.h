@@ -58,6 +58,8 @@ char **get_env(const char *v);
 int n_length(int x);
 char *_itoa(int x);
 int throw_error(char **av, int err);
+
+
 void *re_alloc(void *str, unsigned int old, unsigned int news);
 void asi_lineptr(char **lineptr, size_t *n, char *buf, size_t b);
 ssize_t get_line(char **lineptr, size_t *n, FILE *str);

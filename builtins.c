@@ -5,7 +5,7 @@
  * @cmd: The command to match
  * Return: A function pointer
  */
-int (*find_builtin(char *cmd))(char **args, char **start)
+int (*find_builtin(char __atribute__((__unused__)) *cmd))(char **args, char **start)
 {
 	builtin_t func[] = {
 		{ "exit", shell_exit },

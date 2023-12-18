@@ -41,7 +41,7 @@ int token_count(char *s, char *del)
 		if (*(s + i) != *del)
 		{
 			tok++;
-			i += l_token(s + i, d);
+			i += l_token(s + i, del);
 		}
 	}
 

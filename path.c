@@ -119,4 +119,4 @@ list_t *path_get(char *command)
 	free(dire);
 	return (input);
 }
-}
+

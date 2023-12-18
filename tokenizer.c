@@ -64,6 +64,10 @@ char **str_tok(char *s, char *del)
 	tok = token_count(s, del);
 	if (tok == 0)
 		return (NULL);
+	
+	p = malloc(sizeof(char *) * (tok + 2));
+	if (!p)
+		return (NULL);
 
 	for (t = 0; t < tok; t++)
 	{
@@ -88,7 +92,7 @@ char **str_tok(char *s, char *del)
 	p[t][l] = '\0';
 	}
 p[t] = NULL;
-P[t + 1] = NULL;
+p[t + 1] = NULL;
 
 return (p);
 }

@@ -8,7 +8,7 @@
 #include <errno.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <sys/type.h>
+/* #include <sys/type.h> */
 #include <fcntl.h>
 
 #define EXIT -3
@@ -74,7 +74,7 @@ void call_setenv(void);
 void call_unsetenv(void);
 
 /* builtins.c */
-int (*find_builtin(char *cmd))(char **args, char **start)
+int (*find_builtin(char *cmd))(char **args, char **start);
 int hshell_exit(char **args, char **start);
 int hshell_cd(char **args, char __attribute__((__unused__)) **start);
 int hshell_help(char **args, char __attribute__((__unused__)) **start);

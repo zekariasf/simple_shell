@@ -128,7 +128,7 @@ int argv_handle(int *ret)
 	char **argv, *len = NULL, **beg;
 
 	len = argv_get(len, ret);
-	if(!len)
+	if (!len)
 		return (END_FILE);
 	if (argv_check(argv) != 0)
 	{
@@ -172,4 +172,11 @@ int argv_check(char **argv)
 		if (cur[0] == ';' || cur[0] == '&' || cur[0] == '|')
 		{
 			if (i == 0 || cur[1] == ';')
-				return (
+				return (throw_error(&aegv[i], 2));
+			next = argv[i + 1];
+			if (next && (next[0] == ';' || next[0] == '|'))
+				return (throw_error(&aegv[i], 2));
+		}
+	}
+	return (0);
+}

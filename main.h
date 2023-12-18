@@ -18,14 +18,43 @@
  * @name: name of command
  * @f: function pointer
  */
-typedef struct list_s
+typedef struct builtin_s
 {
 	char *name;
 	int (*f)(char **argv, char **front);
 } builtin_t;
 
-int hist;
 
+/**
+ * struct alias_s - defining aliases.
+ * @name: alias name
+ * @value: alias value
+ * @next: pointer
+ */
+typedef struct alias_s
+{
+	char *name;
+	char *value;
+	struct alias_s *next;
+} alias_t;
+
+/**
+ * struct list_s - linkeed list
+ * @die: directory path
+ * @next: pointer
+ */
+typedef struct list_s
+{
+	char *die;
+	struct list_s *next;
+} list_t;
+
+
+int hist;
+char *name;
+alias_t *aliases;
+
+/* global environ*/
 extern char **environ;
 
 /* buil_alias.c */
@@ -45,6 +74,11 @@ void call_setenv(void);
 void call_unsetenv(void);
 
 /* builtins.c */
+/**
+ * find_builtin - fide builtin command
+ * @cmd: command
+ * Return: 0
+ */
 int (*find_builtin(char *cmd))(char **args, char **start)
 int hshell_exit(char **args, char **start);
 int hshell_cd(char **args, char __attribute__((__unused__)) **start);
@@ -88,9 +122,30 @@ void line_handler(char **argv, ssize_t len);
 ssize_t new_line(char *len);
 void opretors_log(char *len, ssize_t *len_new);
 
-char *argv_get(char *len, int*ret);
+char *argv_get(char *len, int *ret);
 int argv_run(char **argv, char **big, int *ret);
 int argv_handle(int *ret);
 int argv_call(char **argv, char **big, int *ret);
 int argv_check(char **argv);
+
+alias_t *alias_add(alias_t **top, char *input, char *value);
+void alias_free(alias_t *input);
+list_t *node_add(list_t **input, char *dir);
+void list_free(list_t *input);
+
+
+char *path_finde(char *command);
+list_t *path_get(char *command);
+char *locatin_find(char *command);
+
+
+void handle_signal(int sig);
+int execut_e(char **argv, char **beg);
+int main(int argc, char *argv[]);
+
+
+int open_fel(char *path_file);
+int file_command(char *path_file, int *exe);
+
+
 #endif

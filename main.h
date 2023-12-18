@@ -103,6 +103,21 @@ int n_length(int x);
 char *_itoa(int x);
 int throw_error(char **av, int err);
 
+/* fun_str.c */
+int str_len(const char *s);
+char *str_cpy(char *d, const char *s);
+char *str_cat(char *d, const char *s);
+char *strn_cat(char *d, const char *s, size_t n);
+int str_chr(char *str, char c);
+char *strn_cmp(const char *str1, const char *str2, size_t n);
+int *str_cmp(char *str1, char *str2);
+int *str_spn(char *str, char *a);
+
+/* tokenizer.c */
+int l_token(char *s, char *del);
+int token_count(char *s, char *del);
+char **str_tok(char *s, char *del);
+
 
 void *re_alloc(void *str, unsigned int old, unsigned int news);
 void asi_lineptr(char **lineptr, size_t *n, char *buf, size_t b);

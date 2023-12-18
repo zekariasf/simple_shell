@@ -74,11 +74,6 @@ void call_setenv(void);
 void call_unsetenv(void);
 
 /* builtins.c */
-/**
- * find_builtin - fide builtin command
- * @cmd: command
- * Return: 0
- */
 int (*find_builtin(char *cmd))(char **args, char **start)
 int hshell_exit(char **args, char **start);
 int hshell_cd(char **args, char __attribute__((__unused__)) **start);

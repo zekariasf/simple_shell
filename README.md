@@ -1,5 +1,5 @@
 ALX Group project simple shell readme file.
 
-Project was done using C language
+The project was done using the C language
 
-done with zekarias and senay
+this project was given by Alx Software Engineering class

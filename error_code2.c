@@ -7,14 +7,14 @@
  */
 char *perm_err(char **av)
 {
-	char **err, *h_str;
+	char *err, *h_str;
 	int l;
 
 	h_str = _itoa(hist);
 	if (!h_str)
 		return (NULL);
 
-	l = str_len(name) + str_len(h_str) + str_len(args[0]) + 24;
+	l = str_len(name) + str_len(h_str) + str_len(av[0]) + 24;
 	err = malloc(sizeof(char) * (l + 1));
 	if (!err)
 	{

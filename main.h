@@ -45,7 +45,7 @@ typedef struct alias_s
  */
 typedef struct list_s
 {
-	char *die;
+	char *dir;
 	struct list_s *next;
 } list_t;
 
@@ -86,7 +86,7 @@ int hshell_unsetenv(char **av, char __attribute__((__unused__)) **start);
 
 /* error_code.c */
 char *env_err(char **av);
-char ali_err(char **av);
+char *ali_err(char **av);
 char *exit_err(char **av);
 char *cd_err(char **av);
 char *syn_err(char **av);
@@ -108,10 +108,10 @@ int str_len(const char *s);
 char *str_cpy(char *d, const char *s);
 char *str_cat(char *d, const char *s);
 char *strn_cat(char *d, const char *s, size_t n);
-int str_chr(char *str, char c);
-char *strn_cmp(const char *str1, const char *str2, size_t n);
-int *str_cmp(char *str1, char *str2);
-int *str_spn(char *str, char *a);
+char *str_chr(char *str, char c);
+int strn_cmp(const char *str1, const char *str2, size_t n);
+int str_cmp(char *str1, char *str2);
+int str_spn(char *str, char *a);
 
 /* tokenizer.c */
 int l_token(char *s, char *del);
@@ -133,10 +133,11 @@ ssize_t new_line(char *len);
 void opretors_log(char *len, ssize_t *len_new);
 
 char *argv_get(char *len, int *ret);
+int check_argv(char **argv);
 int argv_run(char **argv, char **big, int *ret);
 int argv_handle(int *ret);
 int argv_call(char **argv, char **big, int *ret);
-int argv_check(char **argv);
+
 
 alias_t *alias_add(alias_t **top, char *input, char *value);
 void alias_free(alias_t *input);
@@ -151,11 +152,9 @@ char *locatin_find(char *command);
 
 void handle_signal(int sig);
 int execut_e(char **argv, char **beg);
-int main(int argc, char *argv[]);
 
 
 int open_fel(char *path_file);
 int file_command(char *path_file, int *exe);
-
 
 #endif

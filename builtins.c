@@ -5,23 +5,23 @@
  * @cmd: The command to match
  * Return: A function pointer
  */
-int (*find_builtin(char __atribute__((__unused__)) *cmd))(char **args, char **start)
+int (*find_builtin(char *cmd))(char **args, char **start)
 {
 	builtin_t func[] = {
-		{ "exit", shell_exit },
-		{ "env", shell_env },
-		{ "setenv", shell_env },
-		{ "unsetenv", shell_unsetenv },
-		{ "cd", shell_cd },
-		{ "alias", shell_alias },
-		{ "help", shell_help },
+		{ "exit", hshell_exit },
+		{ "env", hshell_env },
+		{ "setenv", hshell_env },
+		{ "unsetenv", hshell_unsetenv },
+		{ "cd", hshell_cd },
+		{ "alias", alias_shell },
+		{ "help", hshell_help },
 		{ NULL, NULL }
 	};
 	int a;
 
 	for (a = 0; func[a].name; a++)
 	{
-		if (str_cmp(funcs[a].name, cmd) == 0)
+		if (str_cmp(func[a].name, cmd) == 0)
 			break;
 	}
 	return (func[a].f);
@@ -47,9 +47,9 @@ int hshell_exit(char **args, char **start)
 			a = 1;
 			len_i++;
 		}
-		for (; args[0][i]; i++)
+		for (; args[0][a]; a++)
 		{
-			if (i <= len_i && args[0][a] >= '0' && args[0][a] <= '9')
+			if (a <= len_i && args[0][a] >= '0' && args[0][a] <= '9')
 				n = (n * 10) + (args[0][a] - '0');
 			else
 				return (throw_error(--args, 2));
@@ -62,9 +62,9 @@ int hshell_exit(char **args, char **start)
 	if (n > max - 1)
 		return (throw_error(--args, 2));
 	args -= 1;
-	free_args(args, front);
+	str_free(args, start);
 	free_env();
-	free_alias_list(aliases);
+	alias_free(aliases);
 	exit(n);
 }
 /**
@@ -129,7 +129,7 @@ int hshell_cd(char **args, char __attribute__((__unused__)) **start)
 
 	dir_i[0] = "OLDPWD";
 	dir_i[1] = prpwd;
-	if (shell_setenv(dir_i, dir_i) == -1)
+	if (hshell_setenv(dir_i, dir_i) == -1)
 		return (-1);
 	if (args[0] && args[0][0] == '-' && args[0][1] != '-')
 	{

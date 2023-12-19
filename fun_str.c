@@ -27,8 +27,8 @@ char *str_cpy(char *d, const char *s)
 	size_t t;
 
 	for (t = 0; s[t] != '\0'; t++)
-		d[i] = s[i];
-	d[i] = '\0\;
+		d[t] = s[t];
+	d[t] = '\0';
 	return (d);
 }
 /**
@@ -70,10 +70,9 @@ char *strn_cat(char *d, const char *s, size_t n)
 	size_t d_len = str_len(d);
 	size_t t;
 
-	for (t = 0; i < n && s[t] != '\0'; t++)
+	for (t = 0; t < n && s[t] != '\0'; t++)
 		d[d_len + t] = s[t];
 	d[d_len + t] = '\0';
 
 	return (d);
 }
-

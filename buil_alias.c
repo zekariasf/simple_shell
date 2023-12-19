@@ -25,7 +25,7 @@ int alias_shell(char **args, char __attribute__((__unused__)) **start)
 	for (a = 0; args[a]; a++)
 	{
 		tmp = aliases;
-		val = str_chr(args[a], '=')
+		val = str_chr(args[a], '=');
 		if (!val)
 		{
 		while (tmp)
@@ -38,7 +38,7 @@ int alias_shell(char **args, char __attribute__((__unused__)) **start)
 		tmp = tmp->next;
 	}
 	if (!tmp)
-		ret = throw_error(args + i, 1);
+		ret = throw_error(args + a, 1);
 		}
 		else
 			set_alias(args[a], val);
@@ -58,14 +58,14 @@ void set_alias(char *v_name, char *val)
 	char *new_val;
 
 	*val = '\0';
-	value++;
-	l = str_len(value) - str_spn(val, "'\"");
+	val++;
+	l = str_len(val) - str_spn(val, "'\"");
 	new_val = malloc(sizeof(char) * (l + 1));
 	if (!new_val)
 		return;
 	for (x = 0, y = 0; val[x]; x++)
 	{
-		if (value[x] != '\'' && value[x] != '"')
+		if (val[x] != '\'' && val[x] != '"')
 			new_val[y++] = val[x];
 	}
 	new_val[y] = '\0';
@@ -80,7 +80,7 @@ void set_alias(char *v_name, char *val)
 		tmp = tmp->next;
 	}
 	if (!tmp)
-		add_alias_end(&aliases, v_name, new_val);
+		alias_add(&aliases, v_name, new_val);
 }
 /**
  * write_alias - Writes the alias
@@ -125,16 +125,16 @@ char **replace_alias(char **args)
 		{
 			if (str_cmp(args[a], tmp->name) == 0)
 			{
-				new_val = malloc(sizeof(char) * (str_len(temp->value) + 1));
-				if (!new_value)
+				new_val = malloc(sizeof(char) * (str_len(tmp->value) + 1));
+				if (!new_val)
 				{
-					free_args(args, args);
+					str_free(args, args);
 					return (NULL);
 				}
 				str_cpy(new_val, tmp->value);
 				free(args[a]);
 				args[a] = new_val;
-				i--;
+				a--;
 				break;
 			}
 			tmp = tmp->next;
@@ -142,4 +142,3 @@ char **replace_alias(char **args)
 	}
 	return (args);
 }
-

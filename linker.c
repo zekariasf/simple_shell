@@ -44,7 +44,7 @@ alias_t *alias_add(alias_t **top, char *input, char *value)
 list_t *node_add(list_t **input, char *dir)
 {
 	list_t *node = malloc(sizeof(list_t));
-	list_t *las;
+	list_t *len;
 
 	if (!node)
 		return (NULL);
@@ -52,7 +52,7 @@ list_t *node_add(list_t **input, char *dir)
 	node->next = NULL;
 	if (*input)
 	{
-		las = *input;
+		len = *input;
 		while (len->next != NULL)
 			len = len->next;
 		len->next = node;

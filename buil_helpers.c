@@ -84,7 +84,7 @@ void call_help(void)
 	char *info = "help: help\n\t See all possible Hshell builitin commands.\n";
 
 	write(STDOUT_FILENO, info, str_len(info));
-	info = "\n help [BUILTIN NAME]\N\T See specific information on each ";
+	info = "\n help [BUILTIN NAME]\n\t See specific information on each ";
 	write(STDOUT_FILENO, info, str_len(info));
 	info = "builtin commands.\n";
 	write(STDOUT_FILENO, info, str_len(info));

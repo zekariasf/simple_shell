@@ -29,7 +29,7 @@ void *re_alloc(void *str, unsigned int old, unsigned int news)
 		free(str);
 		return (NULL);
 	}
-	cop_str = ste;
+	cop_str = str;
 	mer = malloc(sizeof(*cop_str) * news);
 	if (mer == NULL)
 	{
@@ -119,7 +119,7 @@ ssize_t get_line(char **lineptr, size_t *n, FILE *str)
 		i++;
 	}
 	buf[i] = '\0';
-	ais_lineptr(lineptr, n. buf.i);
+	asi_lineptr(lineptr, n, buf, i);
 	con = i;
 	if (j != 0)
 		i = 0;

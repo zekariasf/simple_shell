@@ -5,12 +5,13 @@
  * @argv: a pointer that point to daynamicly all0cated memory
  * @frs_argv: pointer to pointer to the beginning of argv
  */
-void str_feer(char **argv, char **frs_argv)
+void str_free(char **argv, char **frs_argv)
 {
-	size_t j;
+	size_t i;
 
-	for (j = 0; argv[i] || argv[i + 1]; i++)
+	for (i = 0; argv[i] || argv[i + 1]; i++)
 		free(argv[i]);
+
 	free(frs_argv);
 }
 
@@ -20,7 +21,7 @@ void str_feer(char **argv, char **frs_argv)
  */
 char *pid_value(void)
 {
-	size_t b = 0;
+	size_t i = 0;
 	ssize_t fd;
 	char *buf;
 
@@ -37,7 +38,7 @@ char *pid_value(void)
 		return (NULL);
 	}
 	read(fd, buf, 120);
-	while (buf[i] = ' ')
+	while (buf[i] != ' ')
 		i++;
 	buf[i] = '\0';
 	close(fd);
@@ -55,11 +56,11 @@ char *environ_value(char *beg, int n)
 	char **addr;
 	char *rep = NULL, *temp, *va;
 
-	va = malloc(len + 1);
+	va = malloc(n + 1);
 	if (!va)
 		return (NULL);
 	va[0] = '\0';
-	str_cat(va, beg, n);
+	strn_cat(va, beg, n);
 	addr = get_env(va);
 	free(va);
 
@@ -85,7 +86,7 @@ char *environ_value(char *beg, int n)
 void replac_variable(char **argv, int *i)
 {
 	int b, n = 0, j;
-	char *rep = NULL, *line_old = *argv, line_new;
+	char *rep = NULL, *line_old = *argv, *line_new;
 
 	for (j = 0; line_old[j]; j++)
 	{
@@ -118,9 +119,13 @@ void replac_variable(char **argv, int *i)
 			{
 				str_cat(line_new, rep);
 				free(rep);
-				rep = NULL; }
+				rep = NULL;
+			}
 			str_cat(line_new, &line_old[n]);
 			free(line_old);
 			*argv = line_new;
 			line_old = line_new;
-			i = -1; } } }
+			j = -1;
+		}
+	}
+}

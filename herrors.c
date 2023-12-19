@@ -7,13 +7,13 @@
  */
 int n_length(int x)
 {
-	unsinged int num;
+	unsigned int num;
 	int l = 1;
 
 	if (x < 0)
 	{
 		l++;
-		num = num * -1;
+		num = x * -1;
 	}
 	else
 	{
@@ -46,7 +46,7 @@ char *_itoa(int x)
 	buf[l] = '\0';
 	if (x < 0)
 	{
-		num = num * -1;
+		num = x * -1;
 		buf[0] = '-';
 	}
 	else
@@ -56,7 +56,7 @@ char *_itoa(int x)
 
 	l--;
 	do {
-		buf[l] = (num % 0) + '0';
+		buf[l] = (num % 10) + '0';
 		num /= 10;
 		l--;
 	} while (num > 0);
@@ -83,24 +83,23 @@ int throw_error(char **av, int err)
 			error = ali_err(av);
 			break;
 		case 2:
-			if (*(av[0]) == 'e'
-					error = exit_err(++av);
-			else if (args[0][0] == ';' || av[0][0] == '&' || av[0][0] == '|')
-			error = syn_err(av);
+			if (*(av[0]) == 'e')
+				error = exit_err(++av);
+			else if (av[0][0] == ';' || av[0][0] == '&' || av[0][0] == '|')
+				error = syn_err(av);
 			else
-			error = cd_err(av);
+				error = cd_err(av);
 			break;
 		case 126:
-		error = perm_err(av);
-		break;
-		case 127;
-		error = cmd_err(av);
-		break;
+			error = perm_err(av);
+			break;
+		case 127:
+			error = cmd_err(av);
+			break;
 		}
 		write(STDERR_FILENO, error, str_len(error));
 
 		if (error)
-		free(error);
+			free(error);
 		return (err);
-		}
-
+}

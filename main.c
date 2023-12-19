@@ -27,11 +27,11 @@ int execut_e(char **argv, char **beg)
 	if (command[0] != '/' && command[0] != '.')
 	{
 		flat = 1;
-		command = location_find(command);
+		command = locatin_find(command);
 	}
 	if (!command || (access(command, F_OK) == -1))
 	{
-		if (erron == EACCES)
+		if (errno == EACCES)
 			i = (throw_error(argv, 126));
 		else
 			i = (throw_error(argv, 127));
@@ -49,10 +49,10 @@ int execut_e(char **argv, char **beg)
 		if (ch_pid == 0)
 		{
 			execve(command, argv, environ);
-			if (erron == EACCES)
+			if (errno == EACCES)
 				i = (throw_error(argv, 126));
 			free_env();
-			str_free(argv, flat);
+			str_free(argv, beg);
 			alias_free(aliases);
 			_exit(i);
 		}
@@ -61,9 +61,11 @@ int execut_e(char **argv, char **beg)
 			wait(&stu);
 			i = WEXITSTATUS(stu);
 		}
+	}
 	if (flat)
 		free(command);
 	return (i);
+
 }
 /**
  * main - simple shall
@@ -74,7 +76,7 @@ int execut_e(char **argv, char **beg)
 int main(int argc, char *argv[])
 {
 	int i = 0, j;
-	int *exe = &i;
+	int *exe = &j;
 	char *prompt = "$ ", *new_li = "\n";
 
 	name = argv[0];
@@ -83,7 +85,7 @@ int main(int argc, char *argv[])
 	signal(SIGINT, handle_signal);
 
 	*exe = 0;
-	environ = copy_env();
+	environ = env_copy();
 	if (!environ)
 		exit(-100);
 	if (argc != 1)
@@ -108,7 +110,7 @@ int main(int argc, char *argv[])
 		if (i == END_FILE || i == EXIT)
 		{
 			if (i == END_FILE)
-				write(STIDOUT_FILENO, new_li, 1);
+				write(STDOUT_FILENO, new_li, 1);
 			free_env();
 			alias_free(aliases);
 			exit(*exe);

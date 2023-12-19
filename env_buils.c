@@ -13,9 +13,9 @@ int hshell_env(char **av, char __attribute__((__unused__)) **start)
 
 	if (!environ)
 		return (-1);
-	for (i = 0, environ(i); index++)
+	for (i = 0; environ[i]; i++)
 	{
-		write(STDOUT_FILENO, environ[i], str_len(environ[index]));
+		write(STDOUT_FILENO, environ[i], str_len(environ[i]));
 		write(STDOUT_FILENO, &c, 1);
 	}
 	(void)av;
@@ -31,7 +31,7 @@ int hshell_env(char **av, char __attribute__((__unused__)) **start)
  */
 int hshell_setenv(char **av, char __attribute__((__unused__)) **start)
 {
-	char *env_v = NULL, **new_env, **new_val;
+	char **env_v = NULL, **new_env, *new_val;
 	size_t size;
 	int i;
 
@@ -52,23 +52,23 @@ int hshell_setenv(char **av, char __attribute__((__unused__)) **start)
 		*env_v = new_val;
 		return (0);
 	}
-	for (size = 0; environ[size], size++)
+	for (size = 0; environ[size]; size++)
 		;
 
 	new_env = malloc(sizeof(char *) * (size + 2));
 	if (!new_env)
 	{
 		free(new_val);
-		return (throw_error(args, -1));
+		return (throw_error(av, -1));
 	}
 
-	for (index = 0; environ[i]; i++)
+	for (i = 0; environ[i]; i++)
 		new_env[i] = environ[i];
 
 	free(environ);
 	environ = new_env;
-	eniron[index] = new_val;
-	environ[index + 1] = NULL;
+	environ[i] = new_val;
+	environ[i + 1] = NULL;
 
 	return (0);
 }
@@ -81,7 +81,7 @@ int hshell_setenv(char **av, char __attribute__((__unused__)) **start)
  */
 int hshell_unsetenv(char **av, char __attribute__((__unused__)) **start)
 {
-	char *env_v, **new_env;
+	char **env_v, **new_env;
 	size_t size;
 	int i, j;
 
@@ -113,4 +113,3 @@ int hshell_unsetenv(char **av, char __attribute__((__unused__)) **start)
 
 	return (0);
 }
-

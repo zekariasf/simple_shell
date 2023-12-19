@@ -7,7 +7,7 @@
  */
 char *env_err(char **av)
 {
-	char **err, *h_str;
+	char *err, *h_str;
 	int l;
 
 	h_str = _itoa(hist);
@@ -15,7 +15,7 @@ char *env_err(char **av)
 		return (NULL);
 
 	av--;
-	l = str_len(name) + str_len(h_str) + str_len(args[0]) + 45;
+	l = str_len(name) + str_len(h_str) + str_len(av[0]) + 45;
 	err = malloc(sizeof(char) * (l + 1));
 	if (!err)
 	{
@@ -40,9 +40,9 @@ char *env_err(char **av)
  *
  * Return: Error string
  */
-char ali_err(char **av)
+char *ali_err(char **av)
 {
-	char **err;
+	char *err;
 	int l;
 
 	l = str_len(name) + str_len(av[0]) + 13;
@@ -55,7 +55,7 @@ char ali_err(char **av)
 	str_cat(err, av[0]);
 	str_cat(err, " not found\n");
 
-	return (error);
+	return (err);
 }
 /**
  * exit_err - creates an error message for the hshell alias errors
@@ -100,7 +100,7 @@ char *exit_err(char **av)
  */
 char *cd_err(char **av)
 {
-	char **err, *h_str;
+	char *err, *h_str;
 	int l;
 
 	h_str = _itoa(hist);
@@ -139,7 +139,7 @@ char *cd_err(char **av)
 char *syn_err(char **av)
 {
 
-	char **err, *h_str;
+	char *err, *h_str;
 	int l;
 
 	h_str = _itoa(hist);
@@ -161,6 +161,6 @@ char *syn_err(char **av)
 	str_cat(err, av[0]);
 	str_cat(err, "\" unexpected\n");
 
-	free(h_Str);
+	free(h_str);
 	return (err);
 }

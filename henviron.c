@@ -55,12 +55,11 @@ char **get_env(const char *v)
 	int i, len;
 
 	len = str_len(v);
-	for (i = 0, environ[i]; i++)
+	for (i = 0; environ[i]; i++)
 	{
-		if (strn_cmp(var, environ[i], len) == 0)
+		if (strn_cmp(v, environ[i], len) == 0)
 			return (&environ[i]);
 	}
 
 	return (NULL);
 }
-

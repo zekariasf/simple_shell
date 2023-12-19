@@ -17,7 +17,7 @@ char *argv_get(char *len, int *ret)
 	fd = get_line(&len, &n, STDIN_FILENO);
 	if (fd == -1)
 		return (NULL);
-	if (fe == 1)
+	if (fd == 1)
 	{
 		hist++;
 		if (isatty(STDIN_FILENO))
@@ -25,7 +25,7 @@ char *argv_get(char *len, int *ret)
 		return (argv_get(len, ret));
 	}
 	len[fd - 1] = '\0';
-	replac_variable(&lne, ret);
+	replac_variable(&len, ret);
 	line_handler(&len, fd);
 
 	return (len);
@@ -43,7 +43,7 @@ int argv_call(char **argv, char **big, int *ret)
 	int i, j;
 
 	if (!argv[0])
-		return (ret);
+		return (*ret);
 	for (i = 0; argv[i]; i++)
 	{
 		if (strn_cmp(argv[i], "||", 2) == 0)
@@ -97,25 +97,25 @@ int argv_call(char **argv, char **big, int *ret)
 int argv_run(char **argv, char **big, int *ret)
 {
 	int j, i;
-	int (*builtin)(char **argv, char **bid);
+	int (*builtin)(char **argv, char **big);
 
 	builtin = find_builtin(argv[0]);
 
 	if (builtin)
 	{
-		j = builtin(argv + 1, front);
-		if (j != EXIT_T)
-			ret = j;
+		j = builtin(argv + 1, big);
+		if (j != EXIT)
+			*ret = j;
 	}
 	else
 	{
-		ret = execut_e(argv, big);
+		*ret = execut_e(argv, big);
 		j = *ret;
 	}
 	hist++;
 	for (i = 0; argv[i]; i++)
 		free(argv[i]);
-	retrun(j);
+	return (j);
 }
 /**
  * argv_handle - run the excution command
@@ -130,7 +130,8 @@ int argv_handle(int *ret)
 	len = argv_get(len, ret);
 	if (!len)
 		return (END_FILE);
-	if (argv_check(argv) != 0)
+	argv = str_tok(len, " ");
+	if (check_argv(argv) != 0)
 	{
 		*ret = 2;
 		str_free(argv, argv);
@@ -161,7 +162,7 @@ int argv_handle(int *ret)
  * Return: int value
  */
 
-int argv_check(char **argv)
+int check_argv(char **argv)
 {
 	size_t i;
 	char *cur, *next;
@@ -172,10 +173,10 @@ int argv_check(char **argv)
 		if (cur[0] == ';' || cur[0] == '&' || cur[0] == '|')
 		{
 			if (i == 0 || cur[1] == ';')
-				return (throw_error(&aegv[i], 2));
+				return (throw_error(&argv[i], 2));
 			next = argv[i + 1];
 			if (next && (next[0] == ';' || next[0] == '|'))
-				return (throw_error(&aegv[i], 2));
+				return (throw_error(&argv[i], 2));
 		}
 	}
 	return (0);

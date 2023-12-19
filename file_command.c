@@ -13,14 +13,14 @@ int open_fel(char *path_file)
 	hist_str = _itoa(hist);
 	if (!hist_str)
 		return (127);
-	len = str_len(name) + str_len(hist_str) + str_len(file_path) + 16;
+	len = str_len(name) + str_len(hist_str) + str_len(path_file) + 16;
 	ero = malloc(sizeof(char) * (len + 1));
 	if (ero == NULL)
 	{
 		free(hist_str);
 		return (127);
 	}
-	str_cpy(error, name);
+	str_cpy(ero, name);
 	str_cat(ero, ":");
 	str_cat(ero, hist_str);
 	str_cat(ero, ": can't open");
@@ -83,7 +83,7 @@ int file_command(char *path_file, int *exe)
 	free(len);
 	if (!argv)
 		return (0);
-	if (argv_check(argv) != 0)
+	if (check_argv(argv) != 0)
 	{
 		*exe = 2;
 		str_free(argv, argv);

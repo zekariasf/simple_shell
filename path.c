@@ -5,7 +5,7 @@
  * @command: command
  * Return: path name of thee command
  */
-char *location_find(char *command)
+char *locatin_find(char *command)
 {
 	char **path, *temp;
 	list_t *dire, *input;
@@ -42,7 +42,7 @@ char *location_find(char *command)
  */
 char *path_finde(char *command)
 {
-	char *pwd, com_copy;
+	char *pwd, *com_copy;
 	int i, len = 0;
 
 	pwd = *(get_env("PWD")) + 4;
@@ -51,7 +51,7 @@ char *path_finde(char *command)
 		if (command[i] == ':')
 		{
 			if (command[i + 1] == ':' || i == 0
-				|| path[i + 1] == '\0')
+				|| command[i + 1] == '\0')
 				len += str_len(pwd) + 1;
 			else
 				len++;
@@ -59,7 +59,7 @@ char *path_finde(char *command)
 		else
 			len++;
 	}
-	com_copy = malloc(sizeof(char) * (leen + 1));
+	com_copy = malloc(sizeof(char) * (len + 1));
 	if (com_copy == NULL)
 		return (NULL);
 	com_copy[0] = '\0';

@@ -7,7 +7,7 @@
  * Return: a ptr to the 1st occurence if c is found
  * NULL otherwise
  */
-int str_chr(char *str, char c)
+char *str_chr(char *str, char c)
 {
 	int i;
 
@@ -28,14 +28,14 @@ int str_chr(char *str, char c)
  * 0 if the strings match
  * >0 if str1 is longer than str2
  */
-char *strn_cmp(const char *str1, const char *str2, size_t n)
+int strn_cmp(const char *str1, const char *str2, size_t n)
 {
 	size_t t;
 
 	for (t = 0; str1[t] && str2[t] && t < n; t++)
 	{
 		if (str1[t] > str2[t])
-			return (str1[i] - str2[t]);
+			return (str1[t] - str2[t]);
 		else if (str1[t] - str2[t])
 			return (str1[t] - str2[t]);
 	}
@@ -53,7 +53,7 @@ char *strn_cmp(const char *str1, const char *str2, size_t n)
  * 0 if str1 = str2
  * -ve diff if str1 < str2
  */
-int *str_cmp(char *str1, char *str2)
+int str_cmp(char *str1, char *str2)
 {
 	while (*str1 && *str2 && *str1 == *str2)
 	{
@@ -75,7 +75,7 @@ int *str_cmp(char *str1, char *str2)
 * Return: Number of bytes in str
 */
 
-int *str_spn(char *str, char *a)
+int str_spn(char *str, char *a)
 {
 	int b = 0;
 	int i;

@@ -27,11 +27,11 @@ void call_setenv(void)
  */
 void call_unsetenv(void)
 {
-	char *info = "unsetenv: unsetenv [VARIABLE]\n\tRemoves an";
+	char *info = "unsetenv: unsetenv [VARIABLE]\n\tRemoves an ";
 
 	write(STDOUT_FILENO, info, str_len(info));
 	info = "environmental variable.\n\n\ton failure prints ";
 	write(STDOUT_FILENO, info, str_len(info));
-	infor = "message to stderr.\n";
+	info = "message to stderr.\n";
 	write(STDOUT_FILENO, info, str_len(info));
 }

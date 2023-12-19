@@ -27,7 +27,7 @@ void line_handler(char **argv, ssize_t len)
 		if (n != 0)
 		{
 			prev = line_old[n - 1];
-			if (cur == ";")
+			if (cur == ';')
 			{
 				if (next == ';' && prev != ' ' && prev != ';')
 				{
@@ -73,7 +73,7 @@ void line_handler(char **argv, ssize_t len)
 		}
 		else if (cur == ';')
 		{
-			if (i != 0 && line_old[n - 1] != ' ')
+			if (n != 0 && line_old[n - 1] != ' ')
 				line_new[b++] = ' ';
 			line_new[b++] = ';';
 			if (next != ' ' && next != ';')
@@ -84,7 +84,7 @@ void line_handler(char **argv, ssize_t len)
 	}
 	line_new[b] = '\0';
 	free(*argv);
-	argv = line_new;
+	*argv = line_new;
 }
 
 /**
@@ -105,14 +105,14 @@ void opretors_log(char *len, ssize_t *len_new)
 	{
 		if (next == '&' && prev != ' ')
 			(*len_new)++;
-		else if (prve == '|' && next != ' ')
+		else if (prev == '|' && next != ' ')
 			(*len_new)++;
 	}
 	else if (cur == '|')
 	{
 		if (next == '|' && prev != ' ')
 			(*len_new)++;
-		else if (prve == '|' && next != ' ')
+		else if (prev == '|' && next != ' ')
 			(*len_new)++;
 	}
 }
